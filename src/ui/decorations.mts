@@ -380,8 +380,8 @@ export class DecorationManagerForPURL {
         return ''
       }
       const ret: string[] = []
-      const color = (hex: string, text: string) =>
-        `<span style="color:${hex};">${text}</span>`
+      const color = (themeColor: string, text: string) =>
+        `<span style="color:var(${themeColor});">${text}</span>`
       // grouping is intentionally lossy — fewer dedup buckets keeps the hover readable when many alerts share a type.
       const typesListed = new Set<string>()
       for (let i = 0, { length } = actionGroupedAlertSet; i < length; i += 1) {
@@ -411,10 +411,10 @@ export class DecorationManagerForPURL {
         }
         typesListed.add(alert.type)
         const rowColor = {
-          error: '#ff8800',
-          warn: '#cc8800',
-          monitor: '#aaaa00',
-          ignore: '#888888',
+          error: '--vscode-editorError-foreground',
+          warn: '--vscode-editorWarning-foreground',
+          monitor: '--vscode-editorInfo-foreground',
+          ignore: '--vscode-descriptionForeground',
         }[alert.action]
         ret.push(
           [
@@ -457,6 +457,7 @@ ${(['error', 'warn', 'monitor', 'ignore'] as const)
     // in through API text stays inert. `supportHtml` stays on for the per-action
     // row coloring and the `<br>` line breaks inside table cells; every value
     // interpolated above it goes through escapeMarkdownHtml first.
+    hoverMessage.isTrusted = false
     hoverMessage.supportHtml = true
     return hoverMessage
   }

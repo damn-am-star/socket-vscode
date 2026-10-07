@@ -105,7 +105,7 @@ beforeEach(() => {
 })
 
 describe('hover markdown is not trusted', () => {
-  test('leaves isTrusted unset so a command: URI stays inert', async () => {
+  test('sets isTrusted to false so a command: URI stays inert', async () => {
     const types = new DecorationTypes(extensionContext)
     const manager = new DecorationManagerForPURL('pkg:npm/left-pad', types)
     stubEntries.get('pkg:npm/left-pad')!.pkgData = scoreAndAlerts([])
@@ -113,7 +113,7 @@ describe('hover markdown is not trusted', () => {
 
     const hover = await manager.generateHoverMarkdown()
 
-    expect(hover.isTrusted).toBe(undefined)
+    expect(hover.isTrusted).toBe(false)
     expect(hover.supportHtml).toBe(true)
   })
 })
@@ -185,6 +185,28 @@ describe('hover markdown escapes untrusted text', () => {
     expect(value).not.toContain('<img')
     // oxlint-disable-next-line socket/no-source-content-tests -- escaping
     expect(value).toContain('&lt;img src=x&gt;')
+  })
+})
+
+describe('hover colors follow the active theme', () => {
+  test('uses VS Code semantic colors for every alert action', async () => {
+    const types = new DecorationTypes(extensionContext)
+    const manager = new DecorationManagerForPURL('pkg:npm/left-pad', types)
+    const entry = stubEntries.get('pkg:npm/left-pad')!
+    entry.pkgData = scoreAndAlerts([
+      { action: 'error', type: 'malware', severity: 'critical' },
+      { action: 'warn', type: 'typosquatting', severity: 'high' },
+      { action: 'monitor', type: 'deprecated', severity: 'medium' },
+      { action: 'ignore', type: 'license', severity: 'low' },
+    ] as PackageScoreAndAlerts['alerts'])
+    manager.packageData = entry as never
+
+    const { value } = await manager.generateHoverMarkdown()
+
+    expect(value).toContain('color:var(--vscode-editorError-foreground)')
+    expect(value).toContain('color:var(--vscode-editorWarning-foreground)')
+    expect(value).toContain('color:var(--vscode-editorInfo-foreground)')
+    expect(value).toContain('color:var(--vscode-descriptionForeground)')
   })
 })
 
