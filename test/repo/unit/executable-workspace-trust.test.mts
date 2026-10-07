@@ -18,6 +18,16 @@ beforeEach(() => {
 })
 
 describe('getGoExecutable workspace trust', () => {
+  test('withholds a toolchain in a virtual workspace', async () => {
+    setStubWorkspaceState({
+      configuration: { goExecutable: HOSTILE_GO },
+      fileTypes: { [HOSTILE_GO]: FileType.File },
+      workspaceFolders: [{ uri: { scheme: 'vscode-vfs', fsPath: '/repo' } }],
+    })
+
+    expect(await getGoExecutable()).toBe(undefined)
+  })
+
   test('withholds a workspace-set toolchain in an untrusted workspace', async () => {
     setStubWorkspaceState({
       configuration: { goExecutable: HOSTILE_GO },
