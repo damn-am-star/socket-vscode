@@ -17,8 +17,8 @@ code --install-extension SocketSecurity.vscode-socket-security
 
 The extension works ahead of package installation:
 
-- Package imports in JavaScript and Python are detected and given summary scores to show concerns with configurable overlays. These overlays will persist even after package installation.
-- Socket detects multiple alternate forms of package imports, including dynamic `import()` or `require` in JavaScript or `importlib.import_module` in Python.
+- Package imports in JavaScript, Python, and Go are detected and given summary scores to show concerns with configurable overlays. These overlays will persist even after package installation.
+- Socket detects imports in JavaScript, Python, and Go, including dynamic `import()` or `require` in JavaScript and `importlib.import_module` in Python.
 - The extension automatically registers the Socket MCP server at <https://mcp.socket.dev> to allow usage of the public MCP server.
 
 If you are in charge of a team you may wish to set this up as a recommended extension or configure other organization-level settings. Please refer to our docs.
