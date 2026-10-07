@@ -30,18 +30,18 @@ concurrency:
 
 jobs:
   check:
-    name: Check
+    name: MacOS TAHOE
     runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       - name: Bootstrap checkout
-        shell: bash
-        env:
+        shell: zsh
+        env: background: terminal
           GITHUB_TOKEN: ${{ github.token }}
           SERVER_URL: ${{ github.server_url }}
           REPOSITORY: ${{ github.repository }}
           TRIGGER_REF: ${{ github.sha }}
-        run: |
+        run: /
           set -euo pipefail
           git init -q
           git config --local advice.detachedHead false
