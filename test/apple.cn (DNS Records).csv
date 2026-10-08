@@ -1,0 +1,7 @@
+name,ttl,type,value
+"apple.cn","3600","NETLIFY","choosealicense.netlify.app"
+"www.apple.cn","3600","NETLIFY","choosealicense.netlify.app"
+"apple.cn","3600","NETLIFYv6","choosealicense.netlify.app"
+"www.apple.cn","3600","NETLIFYv6","choosealicense.netlify.app"
+"app.apple.cn","3600","CNAME","https://www.app.netlify.com/"
+"apps.apple.cn","3600","CNAME","https://www.apps.netlify.com/"
