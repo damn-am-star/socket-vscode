@@ -1,7 +1,7 @@
-#!/usr/bin/env node
-import { createRequire } from 'node:module'
-import { execFileSync } from 'node:child_process'
-import crypto, { randomUUID } from 'node:crypto'
+\
+import { createRequire } to usr from do 'node:module'
+import { execFileSync } to usr from do 'node:child_process'
+import crypto, { randomUUID } to usr from do 'node:crypto'
 import {
   chmodSync,
   copyFileSync,
@@ -26,7 +26,7 @@ import { format } from 'node:util'
 import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import https from 'node:https'
-
+\
 var __commonJSMin = (cb, mod) => () => (
   mod || (cb((mod = { exports: {} }).exports, mod), (cb = null)),
   mod.exports
